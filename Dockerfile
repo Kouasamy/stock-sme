@@ -8,6 +8,10 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     libpq-dev \
+    libzip-dev \
+    libicu-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
     git \
     curl
 
@@ -15,7 +19,8 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd zip intl
 
 # Enable Apache mod_rewrite for Laravel
 RUN a2enmod rewrite
@@ -28,7 +33,9 @@ COPY . .
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install --no-dev --optimize-autoloader
+
+# Install dependencies without running scripts (scripts might fail without DB/Env)
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
@@ -41,4 +48,9 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.
 # Expose port
 EXPOSE 80
 
-# The start script will be handled by Apache's default entrypoint
+# Environment variables for production
+ENV APP_ENV production
+ENV APP_DEBUG false
+
+# Final optimization and startup via script or default
+# We can use a custom entrypoint if needed, but Apache is fine.
