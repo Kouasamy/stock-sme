@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     git \
-    curl
+    curl \
+    sqlite3
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -33,8 +34,6 @@ COPY . .
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Install dependencies without running scripts (scripts might fail without DB/Env)
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Set permissions for Laravel
@@ -52,5 +51,7 @@ EXPOSE 80
 ENV APP_ENV production
 ENV APP_DEBUG false
 
-# Final optimization and startup via script or default
-# We can use a custom entrypoint if needed, but Apache is fine.
+# Use custom entrypoint to run migrations
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
