@@ -11,8 +11,18 @@ Stock Manager SME est une application web conçue pour moderniser la gestion des
 Ce projet apporte une réponse concrète à plusieurs problématiques majeures du secteur :
 - Isolation des Données (Multi-Tenancy) : L'architecture logicielle garantit une séparation stricte au niveau utilisateur (user_id). Chaque PME gère son propre inventaire, ses catégories et ses fournisseurs sans risque de fuite de données entre comptes.
 - Audit et Traçabilité : L'intégration de journaux d'activité permet de tracer chaque modification de prix ou de quantité, rendant l'entreprise "Audit-Ready" pour ses inventaires de fin d'année.
-- Communication Professionnelle : Grâce à l'API Resend, le système automatise l'envoi de conseils personnalisés et d'alertes de stock bas directement par email, assurant une réactivité optimale du gestionnaire.
+- Communication Professionnelle et Automatisation (Resend) : Le projet intègre l'API Resend pour transformer la gestion de stock en un outil de conseil proactif. Le système automatise l'envoi de conseils stratégiques et d'alertes de rupture de stock via des mails haute fidélité (HTML/CSS), garantissant que les informations critiques parviennent aux décideurs sans passer par les dossiers SPAM.
 - Complexité Réduite : Contrairement aux ERP lourds, Stock Manager SME se concentre sur l'essentiel avec une interface épurée et une base de données légère (SQLite), idéale pour un déploiement rapide.
+
+---
+
+## INTÉGRATION TECHNIQUE DE RESEND
+
+L'envoi de mails a été conçu pour être à la fois performant et esthétique :
+- Infrastructure : Utilisation du driver Resend pour Laravel, remplaçant le protocole SMTP classique par des requêtes API sécurisées.
+- Design des Mails : Les notifications utilisent le moteur de rendu Markdown de Laravel, converti en HTML responsive pour un affichage optimal sur mobile et ordinateur.
+- Automatisation : Déclenchement automatique de conseils personnalisés basés sur l'analyse algorithmique des niveaux de stock actuels.
+- Délivrabilité : Configuration optimisée pour assurer que 100% des mails de gestion arrivent en boîte de réception.
 
 ---
 
