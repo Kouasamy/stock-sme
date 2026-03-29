@@ -1,66 +1,53 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Stock Manager SME - Système de Gestion de Stocks Isolé
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## PRÉSENTATION DU PROJET
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Objectif du Projet
+Stock Manager SME est une application web conçue pour moderniser la gestion des inventaires des petites et moyennes entreprises. L'objectif est de remplacer les méthodes de suivi manuelles par une plateforme centralisée permettant de suivre en temps réel les niveaux de stock, les mouvements d'entrée/sortie, et de recevoir des conseils de gestion automatisés.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. Le Problème Technique Résolu
+Ce projet apporte une réponse concrète à plusieurs problématiques majeures du secteur :
+- Isolation des Données (Multi-Tenancy) : L'architecture logicielle garantit une séparation stricte au niveau utilisateur (user_id). Chaque PME gère son propre inventaire, ses catégories et ses fournisseurs sans risque de fuite de données entre comptes.
+- Audit et Traçabilité : L'intégration de journaux d'activité permet de tracer chaque modification de prix ou de quantité, rendant l'entreprise "Audit-Ready" pour ses inventaires de fin d'année.
+- Communication Professionnelle : Grâce à l'API Resend, le système automatise l'envoi de conseils personnalisés et d'alertes de stock bas directement par email, assurant une réactivité optimale du gestionnaire.
+- Complexité Réduite : Contrairement aux ERP lourds, Stock Manager SME se concentre sur l'essentiel avec une interface épurée et une base de données légère (SQLite), idéale pour un déploiement rapide.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ARCHITECTURE & TECH STACK
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+La plateforme utilise des technologies modernes pour assurer stabilité et simplicité :
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Framework : Laravel 12 (PHP 8.2+)
+- Base de Données : SQLite pour une portabilité maximale
+- Sécurité : Système d'authentification robuste avec isolation par user_id
+- Emailing : API Resend pour une délivrabilité garantie
+- Traçabilité : Laravel Activity Log pour l'audit complet du système
+- Interface : Vanilla CSS avec design moderne (Glassmorphism)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## INSTALLATION & DÉMARRAGE
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. Pré-requis : PHP 8.2+, Composer.
+2. Installation :
+   ```bash
+   composer install
+   php artisan migrate:fresh --seed
+   php artisan serve
+   ```
+3. Configuration : Renseignez votre clé API Resend dans le fichier .env pour activer les notifications mail.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## CRÉDITS & DÉVELOPPEMENT
 
-## Contributing
+Ce projet a été réalisé avec une attention particulière à la fiabilité de la logique métier et à la protection des données sensibles des PME.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Développé par : Kouat Ekra Samuel**
+*Mars 2026*
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+© 2026 Stock Manager SME - La gestion de stock simplifiée pour les PME.
